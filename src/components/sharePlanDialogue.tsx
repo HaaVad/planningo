@@ -1,6 +1,7 @@
 "use client"
 
 import { Copy } from "lucide-react"
+import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -15,6 +16,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Plan } from "../../types/Plan"
 
 export function SharePlanDialogue() {
 
@@ -69,4 +71,60 @@ export function SharePlanDialogue() {
       </DialogContent>
     </Dialog>
   )
+}
+
+
+export function PlanDialogue(plan: Plan) {
+
+  const copyToClipboard = () => {
+      const textField = document.createElement('textarea');
+      textField.innerText = 'https://www.nrk.no'; // Set your text here
+      document.body.appendChild(textField);
+      textField.select();
+      document.execCommand('copy');
+      textField.remove();
+    };
+
+return (
+  <Dialog>
+    <DialogContent className="sm:max-w-md">
+      <DialogHeader>
+        <DialogTitle>Plan created!</DialogTitle>
+        <DialogDescription>
+          Anyone with this link can access and vote.
+        </DialogDescription>
+      </DialogHeader>
+      <div className="flex items-center space-x-2">
+        <div className="grid flex-1 gap-2">
+          <Label htmlFor="link" className="sr-only">
+            Link
+          </Label>
+          <Input
+            id="link"
+            defaultValue={`https://localhost:3000/plan/${plan.slug}`}
+            readOnly
+          />
+        </div>
+        <Button type="submit" size="sm" className="px-3" onClick={copyToClipboard}>
+          <span className="sr-only">Copy</span>
+          <Copy className="h-4 w-4" />
+        </Button>
+        <Link href={`/plan/${plan.slug}`}>
+        <Button type="submit" size="sm" className="px-3">
+          <span className="sr-only">Your Plan</span>
+          <Copy className="h-4 w-4" />
+        </Button>
+        </Link>
+
+      </div>
+      <DialogFooter className="sm:justify-start">
+        <DialogClose asChild>
+          <Button type="button" variant="secondary">
+            Close
+          </Button>
+        </DialogClose>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+)
 }

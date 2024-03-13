@@ -1,8 +1,8 @@
 export type Plan = {
-    _id: string;
+    planId: string;
     _createdAt: Date;
-    title: string;
+    name: string;
     slug: string;
     description: string;
-    dateAlternatives: Date[];
+    dates: Date[];
 };
