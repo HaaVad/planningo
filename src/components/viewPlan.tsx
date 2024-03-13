@@ -36,7 +36,7 @@ export function ViewPlan({ plan }: ViewPlanProps) {
       <TableHead className="text-right">Can join?</TableHead>
     </TableRow>
   </TableHeader>
-  {plan.dates
+  {plan.dateAlternatives
 .map((date, index) => ( 
   <TableBody key={index+1}>
     <TableRow >

@@ -32,3 +32,32 @@ export default async function Page({params}: Props) {
     </div>
     );
 }
+
+
+
+
+// {
+//   "name": "BellaDelfi",
+//   "description": "vdrfads",
+//   "owner": "Planningo",
+//   "slug": "pl13belladelfi2an",
+//   "dates": [
+//     "2024-03-21T23:00:00.000Z",
+//     "2024-03-27T23:00:00.000Z",
+//     "2024-03-25T23:00:00.000Z",
+//     "2024-03-18T23:00:00.000Z"
+//   ]
+// }
+
+
+// {
+//   "name": "string",
+//   "description": "string",
+//   "owner": "string",
+//   "slug": "string",
+//   "dates": [
+//     "2024-03-13T14:24:32.149Z"
+//     "2024-03-18T23:00:00.000Z"
+
+//   ]
+// }

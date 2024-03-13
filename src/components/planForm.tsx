@@ -29,7 +29,7 @@ const formSchema = z.object({
   owner: z.string(),
   name: z.string().min(2).max(30),
   description: z.string(),
-  dates: z.array(z.date()).min(2).max(20),
+  dateAlternatives: z.array(z.date()).min(2).max(20),
   })
 
 
@@ -41,35 +41,38 @@ export function PlanForm() {
       name: "",
       owner: "",
       description: "",
-      dates:[]
+      dateAlternatives:[]
     },
     })
 
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
       const slug = slugify(values.name);
-      // console.log(values); // log the response data if needed
+
+      const requestBody = {
+        name: values.name,
+        description: values.description,
+        owner: "Planningo",
+        slug: slug,
+        dateAlternatives: values.dateAlternatives.map((date: Date) => date.toISOString()),
+      };
+
+      console.log(JSON.stringify(requestBody, null, 2));
 
     
       try {
-        const isoDates = values.dates.map((date: Date) => date.toISOString());
+        const isodateAlternatives = values.dateAlternatives.map((date: Date) => date.toISOString());
         const response = await fetch(`https://localhost:7058/plan`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            name: values.name,
-            description: values.description,
-            owner: "Planningo",
-            slug: slug,
-            dates: isoDates,
-          }
+          body: JSON.stringify(requestBody
           ),
 
 
         });
-        console.log(isoDates); // log the response data if needed
+        console.log(isodateAlternatives); // log the response data if needed
 
         if (!response.ok) {
           throw new Error('Naaat working!');
@@ -118,10 +121,10 @@ export function PlanForm() {
         />
         <FormField
           control={form.control}
-          name="dates" 
+          name="dateAlternatives" 
           render={({ field }) => (
             <FormItem>
-            <FormLabel>Pick dates</FormLabel>
+            <FormLabel>Pick dateAlternatives</FormLabel>
               <FormControl>
               <Calendar
                  mode="multiple"
@@ -132,7 +135,7 @@ export function PlanForm() {
                 />
               </FormControl>
               <FormDescription></FormDescription>
-              <FormMessage>{form.formState.errors.dates?.message}</FormMessage>
+              <FormMessage>{form.formState.errors.dateAlternatives?.message}</FormMessage>
 
             </FormItem>
             )}
@@ -140,7 +143,6 @@ export function PlanForm() {
         
         <div className="mx-auto">    
         <Button type="submit">Submit</Button>
-
         </div>
       </form>
     </Form>

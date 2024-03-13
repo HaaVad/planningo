@@ -74,7 +74,7 @@ export function SharePlanDialogue() {
 }
 
 
-export function PlanDialogue(plan: Plan) {
+export function PlanDialogue(slug: string) {
 
   const copyToClipboard = () => {
       const textField = document.createElement('textarea');
@@ -101,7 +101,7 @@ return (
           </Label>
           <Input
             id="link"
-            defaultValue={`https://localhost:3000/plan/${plan.slug}`}
+            defaultValue={`https://localhost:3000/plan/${slug}`}
             readOnly
           />
         </div>
@@ -109,7 +109,7 @@ return (
           <span className="sr-only">Copy</span>
           <Copy className="h-4 w-4" />
         </Button>
-        <Link href={`/plan/${plan.slug}`}>
+        <Link href={`/plan/${slug}`}>
         <Button type="submit" size="sm" className="px-3">
           <span className="sr-only">Your Plan</span>
           <Copy className="h-4 w-4" />

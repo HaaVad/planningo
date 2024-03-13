@@ -4,5 +4,5 @@ export type Plan = {
     name: string;
     slug: string;
     description: string;
-    dates: Date[];
+    dateAlternatives: Date[];
 };
