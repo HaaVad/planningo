@@ -16,27 +16,40 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Plan } from "../../types/Plan"
 
-export function SharePlanDialogue() {
+
+
+
+
+
+export function SharePlanDialogue({submissionSuccess, slug}: {submissionSuccess: boolean, slug: string}) {
 
     const copyToClipboard = () => {
         const textField = document.createElement('textarea');
-        textField.innerText = 'https://www.nrk.no'; // Set your text here
+        textField.innerText = ''; 
         document.body.appendChild(textField);
         textField.select();
         document.execCommand('copy');
         textField.remove();
       };
 
+
+
+      const handleClick = () => {
+        window.location.reload();
+      };
+    
       
 
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Submit</Button>
+        <div>Submit</div>
       </DialogTrigger>
+      {submissionSuccess ? (
+
+
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Plan created!</DialogTitle>
@@ -51,7 +64,7 @@ export function SharePlanDialogue() {
             </Label>
             <Input
               id="link"
-              defaultValue="https://www.nrk.no"
+              defaultValue={`https://localhost:3000/${slug}`}
               readOnly
             />
           </div>
@@ -61,70 +74,21 @@ export function SharePlanDialogue() {
           </Button>
 
         </div>
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
+        <DialogFooter className="flex flex-row justify-around mx-auto">
+            <Link href={`/plan/${slug}`}>
             <Button type="button" variant="secondary">
-              Close
+              View Plan
             </Button>
-          </DialogClose>
+            </Link>
+            <DialogClose asChild>
+            <Button type="button" onClick={handleClick}variant="secondary">
+              Create new
+            </Button>
+            </DialogClose>
         </DialogFooter>
       </DialogContent>
+      ) : null}
     </Dialog>
   )
 }
 
-
-export function PlanDialogue(slug: string) {
-
-  const copyToClipboard = () => {
-      const textField = document.createElement('textarea');
-      textField.innerText = 'https://www.nrk.no'; // Set your text here
-      document.body.appendChild(textField);
-      textField.select();
-      document.execCommand('copy');
-      textField.remove();
-    };
-
-return (
-  <Dialog>
-    <DialogContent className="sm:max-w-md">
-      <DialogHeader>
-        <DialogTitle>Plan created!</DialogTitle>
-        <DialogDescription>
-          Anyone with this link can access and vote.
-        </DialogDescription>
-      </DialogHeader>
-      <div className="flex items-center space-x-2">
-        <div className="grid flex-1 gap-2">
-          <Label htmlFor="link" className="sr-only">
-            Link
-          </Label>
-          <Input
-            id="link"
-            defaultValue={`https://localhost:3000/plan/${slug}`}
-            readOnly
-          />
-        </div>
-        <Button type="submit" size="sm" className="px-3" onClick={copyToClipboard}>
-          <span className="sr-only">Copy</span>
-          <Copy className="h-4 w-4" />
-        </Button>
-        <Link href={`/plan/${slug}`}>
-        <Button type="submit" size="sm" className="px-3">
-          <span className="sr-only">Your Plan</span>
-          <Copy className="h-4 w-4" />
-        </Button>
-        </Link>
-
-      </div>
-      <DialogFooter className="sm:justify-start">
-        <DialogClose asChild>
-          <Button type="button" variant="secondary">
-            Close
-          </Button>
-        </DialogClose>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
-)
-}

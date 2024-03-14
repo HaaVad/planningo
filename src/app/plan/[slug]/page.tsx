@@ -16,9 +16,9 @@ export default async function PlanView({params}: Props) {
 
   return (
     <main>
-      <h2 >{data.name}</h2>
+      <h2>{data.name}</h2>
       <p className="">{data.description}</p>
-      <ViewPlan plan={data}></ViewPlan>
+      <ViewPlan plan={data }/>
     </main>
   );
 }

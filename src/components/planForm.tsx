@@ -3,12 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import React from "react"
+import React, {useState} from "react"
 import { slugify } from "./utils"
-
-//import supabase from '@/path/to/supabase';
-
-
 import { Button } from "./ui/button"
 import { Calendar } from "./ui/calendar"
 import {
@@ -22,7 +18,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { SharePlanDialogue } from "./sharePlanDialogue"
-
 
 const formSchema = z.object({
   slug: z.string(),
@@ -44,24 +39,27 @@ export function PlanForm() {
       dateAlternatives:[]
     },
     })
-
+    const [submissionSuccess, setSubmissionSuccess] = useState(false);
+    const [slug, setSlug] = useState<string>("");
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-      const slug = slugify(values.name);
 
+
+      console.log(values.dateAlternatives)
+      const newSlug = slugify(values.name);
+      setSlug(newSlug);
       const requestBody = {
         name: values.name,
         description: values.description,
         owner: "Planningo",
-        slug: slug,
-        dateAlternatives: values.dateAlternatives.map((date: Date) => date.toISOString()),
+        slug: newSlug,
+        dateAlternatives: values.dateAlternatives,
       };
 
-      console.log(JSON.stringify(requestBody, null, 2));
+      console.log(JSON.stringify(requestBody, null, 2));//hva skjer
 
-    
+      
       try {
-        const isodateAlternatives = values.dateAlternatives.map((date: Date) => date.toISOString());
         const response = await fetch(`https://localhost:7058/plan`, {
           method: 'POST',
           headers: {
@@ -72,17 +70,17 @@ export function PlanForm() {
 
 
         });
-        console.log(isodateAlternatives); // log the response data if needed
 
         if (!response.ok) {
-          throw new Error('Naaat working!');
+          throw new Error('Something is flailing!');
 
         }
-    
-        // Assuming you want to wait for the response body to be read as JSON
+
         const data = await response.json();
-        
-        console.log(data); // log the response data if needed
+        console.log(data);
+        setSubmissionSuccess(true);
+
+
       } catch (error) {
         console.error('Error occurred while submitting data:', error);
       }
@@ -142,33 +140,11 @@ export function PlanForm() {
         />   
         
         <div className="mx-auto">    
-        <Button type="submit">Submit</Button>
+        <Button type="submit">
+        <SharePlanDialogue submissionSuccess={submissionSuccess} slug={slug}/>
+        </Button>
+        
         </div>
       </form>
     </Form>
   );} 
-
-
-
-      // async function onSubmit(values: z.infer<typeof formSchema>) {
-    //   const slug = slugify(values.name);
-
-    //   // const { data, error } = await supabase
-    //   const data = await fetch(`https://localhost:7058/plan`, {
-    //     method: 'POST',
-    //     })
-
-    //   .from("your_table_name")
-    //   .insert([
-    //     {
-    //       id: values.id,
-    //       slug: slug,
-    //       name: values.name,
-    //       description: values.description,
-    //       date_alternatives: values.dateAlternatives,
-    //     },
-    //   ]);
-      
-    //   console.log(values)
-    //   console.log(slug)
-    // }  

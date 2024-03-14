@@ -24,6 +24,12 @@ const weekDayOptions:  Intl.DateTimeFormatOptions = { weekday: 'long', timeZone:
 
 export function ViewPlan({ plan }: ViewPlanProps) {
 
+const dates: Date[] = plan.dateAlternatives.map(dateString => new Date(dateString));
+
+
+console.log(plan.dateAlternatives)
+// console.log(dates)
+
     return(
 <div>
 <Table>
@@ -36,11 +42,11 @@ export function ViewPlan({ plan }: ViewPlanProps) {
       <TableHead className="text-right">Can join?</TableHead>
     </TableRow>
   </TableHeader>
-  {plan.dateAlternatives
+  {dates
 .map((date, index) => ( 
   <TableBody key={index+1}>
     <TableRow >
-      <TableCell className="font-medium">{date.toLocaleString("en", weekDayOptions)}</TableCell>
+      <TableCell className="font-medium p">{date.toLocaleString("en", weekDayOptions)}</TableCell>
 
       <TableCell>{date.toLocaleString("en", dateOptions)}</TableCell>
       <TableCell className="px-6">1</TableCell>
