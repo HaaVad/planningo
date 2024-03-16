@@ -51,12 +51,12 @@ export function PlanForm() {
       const requestBody = {
         name: values.name,
         description: values.description,
-        owner: "Planningo",
+        owner: "Queen of the plan",
         slug: newSlug,
         dateAlternatives: values.dateAlternatives,
       };
 
-      console.log(JSON.stringify(requestBody, null, 2));//hva skjer
+      console.log(JSON.stringify(requestBody, null, 2));
 
       
       try {
@@ -113,7 +113,6 @@ export function PlanForm() {
               <FormControl>
                 <Input placeholder="Describe, or dont!" {...field} />
               </FormControl>
-              <FormMessage />
             </FormItem>
             )}
         />

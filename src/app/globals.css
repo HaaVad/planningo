@@ -103,11 +103,12 @@ header {
 }
 
 h1 {
-  font-size: 3em; 
-  font-weight: 340;
+  font-size: 3.1em; 
+  font-weight: 450;
   text-align: center;
   margin-top: 20px; 
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
 h2 {
@@ -119,6 +120,7 @@ h2 {
 }
 
 p {
+  font-size: medium;
   padding-top: 4px;
   padding-bottom: 8px;
 }

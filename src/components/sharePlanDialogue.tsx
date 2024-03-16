@@ -64,7 +64,7 @@ export function SharePlanDialogue({submissionSuccess, slug}: {submissionSuccess:
             </Label>
             <Input
               id="link"
-              defaultValue={`https://localhost:3000/${slug}`}
+              defaultValue={`https://localhost:3000/plan/${slug}`}
               readOnly
             />
           </div>
@@ -74,7 +74,7 @@ export function SharePlanDialogue({submissionSuccess, slug}: {submissionSuccess:
           </Button>
 
         </div>
-        <DialogFooter className="flex flex-row justify-around mx-auto">
+        <DialogFooter className="flex flex-row gap-8 mx-auto">
             <Link href={`/plan/${slug}`}>
             <Button type="button" variant="secondary">
               View Plan

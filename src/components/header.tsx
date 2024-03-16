@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Header(){
 
   return (
-    <header className="flex flex-row justify-center pl-6">
+    <header className="flex flex-row justify-center pl-6 shadow-md">
       <h1>Planningo</h1>
       <Link href="/" className="-mb-12">
       <Image 
